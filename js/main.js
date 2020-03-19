@@ -62,6 +62,8 @@ function createModel() {
 
 //根据数据定位每个块元素的位置
 function locationBlocks() {
+    // 检测16 宫格是否越界
+    checkBound();
     // 块元素数据 模型里的row & col
     // 1. 拿到所有块元素
     let activityModelEles = document.getElementsByClassName('activity_model');
@@ -135,7 +137,33 @@ function rotate() {
         blockModel.row = blockModel.col;
         blockModel.col = 3 - temp;
     }
-
-    // 重新 定位
+    // 重新定位
     locationBlocks();
+}
+
+// 控制模型只能在容器中移动
+function checkBound() {
+    // 定义容器边界
+    let leftBound = 0;
+    let rightBound = COL_COUNT;
+    let bottomBound = ROW_COUNT;
+    // 当快元素超出了边界之后， 往后退
+    for (let key in currentModel) {
+        // 块元素
+        let blockModel = currentModel[key];
+
+        // 左侧越界
+        if ((currentX + blockModel.col) < leftBound) {
+            currentX++;
+        }
+        // 右侧越界
+        if ((currentX + blockModel.col) >= rightBound) {
+            currentX--;
+        }
+        // 底部越界
+        if ((currentY + blockModel.row) >= bottomBound) {
+            currentY--;
+        }
+
+    }
 }
