@@ -106,8 +106,10 @@
             let blockModel = currentModel[i];
             // 2.根据每个块元素的数据源，通过top & left定位每个块元素的位置
             activityModelEle.style.top = (currentY + blockModel.row) * STEP + 'px';
-            activityModelEle.style.left = (currentX + blockModel.col )* STEP + 'px';
+            activityModelEle.style.left = (currentX + blockModel.col) * STEP + 'px';
+
         }
+        console.log(currentX, currentY);
     }
 
     // 监听用户的键盘事件
@@ -116,7 +118,8 @@
             // 上 38 下 40 左 37 右 39
             switch (event.keyCode) {
                 case 38:
-                    move(0, -1);
+                    rotate(); // 旋转
+                    // move(0, -1);
                     break;
                 case 40:
                     move(0, 1);
@@ -150,7 +153,25 @@
         currentY += y;
 
         // 重新定位块元素
-         locationBlocks()
+        locationBlocks()
+    }
+
+    //模型的旋转
+    function rotate() {
+        // 算法：
+        // 旋转后的行 = 旋转前的列
+        // 旋转后的列 = 3 - 旋转前的行
+        for (let key in currentModel) {
+            // 块元素的数据源
+            let blockModel = currentModel[key];
+            // run
+            let temp = blockModel.row;
+            blockModel.row = blockModel.col;
+            blockModel.col = 3 - temp;
+        }
+
+        // 重新 定位
+        locationBlocks();
     }
 </script>
 </body>
