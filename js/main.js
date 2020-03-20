@@ -252,3 +252,25 @@ function isMeet(x, y, model) {
     return false;
 }
 
+/**
+ * 判断是否被铺满
+ */
+function isRemoveLine() {
+    // 在一行中 每一列 都存在块元素，那么改行需要被清空
+    // 遍历所有行中的所有列
+    for (let i = 0; i < ROW_COUNT; i++) {
+        // 标记, 假设当前行已经被铺满了
+        let flag = true;
+        // 该行中所有的列
+        for (let j = 0; j < COL_COUNT; j++) {
+            if (!fixedBlocks[i + "_" +j]) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            // 该行已经被铺满了
+            console.log(i + "已经ok");
+        }
+    }
+}
