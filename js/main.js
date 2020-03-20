@@ -40,13 +40,18 @@ let currentModel = {};
 let currentX = 0;
 let currentY = 0;
 
+// 保存所有被固定的块元素, 以及位置
+let fixedBlocks = {};
+
 // 入口函数
 function init() {
     createModel();
     onkeyDown();
 }
 
-// 创建新模型
+/**
+ * 创建新模型
+ */
 function createModel() {
     // 当前使用模型
     currentModel = MODELS[0];
@@ -64,7 +69,9 @@ function createModel() {
     }
 }
 
-//根据数据定位每个块元素的位置
+/**
+ * 根据数据定位每个块元素的位置
+ */
 function locationBlocks() {
     // 检测16 宫格是否越界
     checkBound();
@@ -84,7 +91,9 @@ function locationBlocks() {
     console.log(currentX, currentY);
 }
 
-// 监听用户的键盘事件
+/**
+ * 监听用户的键盘事件
+ */
 function onkeyDown() {
     document.onkeydown = (event) => {
         // 上 38 下 40 左 37 右 39
@@ -109,7 +118,11 @@ function onkeyDown() {
     }
 }
 
-// 移动
+/**
+ * 移动位置
+ * @param x 坐标x
+ * @param y 坐标y
+ */
 function move(x, y) {
     // 控制 left/top
     /*
@@ -120,6 +133,13 @@ function move(x, y) {
         activityModelEle[i].style.left = parseInt(activityModelEle[i].style.left || 0) + x * STEP + 'px';
     }
     */
+    // 判断操作是否会影响固定的方块
+    if (isMeet(currentX + x, currentY + y, currentModel)) {
+        if (y !== 0) {
+            fixedBottomMode();
+        }
+        return;
+    }
     // 定位
     currentX += x;
     currentY += y;
@@ -128,24 +148,41 @@ function move(x, y) {
     locationBlocks()
 }
 
-//模型的旋转
+/**
+ * 模型的旋转
+ */
 function rotate() {
     // 算法：
     // 旋转后的行 = 旋转前的列
     // 旋转后的列 = 3 - 旋转前的行
-    for (let key in currentModel) {
+
+    // 克隆 currentCurrentModel
+    let cloneCurrentCurrentModel = _.cloneDeep(currentModel);
+
+    for (let key in cloneCurrentCurrentModel) {
         // 块元素的数据源
-        let blockModel = currentModel[key];
+        let blockModel = cloneCurrentCurrentModel[key];
         // run
         let temp = blockModel.row;
         blockModel.row = blockModel.col;
         blockModel.col = 3 - temp;
     }
+
+    // 将要移动的位置是否会发生触碰
+    if (isMeet(currentX, currentY, cloneCurrentCurrentModel)) {
+        return;
+    }
+
+    //
+    currentModel = cloneCurrentCurrentModel;
+
     // 重新定位
     locationBlocks();
 }
 
-// 控制模型只能在容器中移动
+/**
+ * 控制模型只能在容器中移动
+ */
 function checkBound() {
     // 定义容器边界
     let leftBound = 0;
@@ -173,7 +210,9 @@ function checkBound() {
     }
 }
 
-// 把模型固定到底部
+/**
+ * 把模型固定到底部
+ */
 function fixedBottomMode() {
     // 1. 改变模型样式
     // 2. 让模型不可以继续移动
@@ -186,7 +225,30 @@ function fixedBottomMode() {
         let activityModelEle = activityModelEls[i];
         // 修改类名
         activityModelEle.className = "fixed_model";
+        // 行_列：元素
+        let blockModel = currentModel[i];
+        fixedBlocks[(currentY + blockModel.row) + "_" + (currentX + blockModel.col)] = activityModelEle;
     }
     // 3. 创建新模型
     createModel();
 }
+
+/**
+ * 判断块元素之间的触碰
+ * @param x 16宫格将要移动到的位置x
+ * @param y 16宫格将要移动到的位置y
+ * @param model 模型将要发生变化
+ */
+function isMeet(x, y, model) {
+    // 如果一个活动中的模型触碰到了固定的块元素活动中的模型将不可以继续走
+    // 判断碰撞，活动中的模型将要移动到的位置 返回 true / false
+    for (let key in model) {
+        let blockModel = model[key];
+        // 判断是否存在元素
+        if (fixedBlocks[(y + blockModel.row) + "_" + (x + blockModel.col)]) {
+            return true;
+        }
+    }
+    return false;
+}
+
