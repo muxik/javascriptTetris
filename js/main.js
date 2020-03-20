@@ -229,6 +229,9 @@ function fixedBottomMode() {
         let blockModel = currentModel[i];
         fixedBlocks[(currentY + blockModel.row) + "_" + (currentX + blockModel.col)] = activityModelEle;
     }
+    // 判断一行是否被铺满
+    isRemoveLine();
+
     // 3. 创建新模型
     createModel();
 }
@@ -263,14 +266,29 @@ function isRemoveLine() {
         let flag = true;
         // 该行中所有的列
         for (let j = 0; j < COL_COUNT; j++) {
-            if (!fixedBlocks[i + "_" +j]) {
+            if (!fixedBlocks[i + "_" + j]) {
                 flag = false;
                 break;
             }
         }
         if (flag) {
             // 该行已经被铺满了
-            console.log(i + "已经ok");
+            removeLine(i);
         }
+    }
+}
+
+/**
+ * 清理制定行行
+ * @param line 要清理的行
+ */
+function removeLine(line) {
+    // 1.删除该行所有元素
+    // 2.删除该行中所有 块元素 的数据
+    for (let i = 0; i < COL_COUNT; i++) {
+        // 删除块元素
+        document.getElementById("container").removeChild(fixedBlocks[line + "_" + i]);
+        // 清除该行数据
+        fixedBlocks[line + "_" + i] = null;
     }
 }
