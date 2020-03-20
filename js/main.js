@@ -30,7 +30,8 @@ const MODELS = [
             row: 1,
             col: 2
         },
-    }
+    },
+
 ];
 
 // 变量 当前模型
@@ -279,7 +280,7 @@ function isRemoveLine() {
 }
 
 /**
- * 清理制定行行
+ * 清理当前行方块
  * @param line 要清理的行
  */
 function removeLine(line) {
@@ -290,5 +291,30 @@ function removeLine(line) {
         document.getElementById("container").removeChild(fixedBlocks[line + "_" + i]);
         // 清除该行数据
         fixedBlocks[line + "_" + i] = null;
+    }
+    downLine(line);
+}
+
+/**
+ * 让被清理行上的方块掉落
+ * @param line 要清理的行
+ */
+function downLine(line) {
+    // 1.被清理行之上的所有块元素数据 源所在的行数+1
+    // 2.让块元素在容器中下降
+    // 3.清理掉之前的块元素
+
+    // 遍历被清理之上的所有行
+    for (let i = line - 1; i >= 0; i--) {
+        for (let j = 0; j < COL_COUNT; j++) {
+            // 如果当前行的当前列不存在数据
+            if (!fixedBlocks[i + "_" + j]) continue;
+            // 1.被清理行之上的所有块元素数据 源所在的行数+1
+            fixedBlocks[(i + 1) + "_" + j] = fixedBlocks[i + "_" + j];
+            // 2.让块元素在容器中下降
+            fixedBlocks[(i + 1) + "_" + j].style.top = (i + 1) * STEP + "px";
+            // 3.清理掉之前的块元素
+            fixedBlocks[i + "_" + j] = null
+        }
     }
 }
