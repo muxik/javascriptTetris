@@ -46,9 +46,13 @@ function init() {
     onkeyDown();
 }
 
+// 创建新模型
 function createModel() {
     // 当前使用模型
     currentModel = MODELS[0];
+    // 初始化 16 宫格的位置
+    currentY = 0;
+    currentX = 0;
     // 根据模型的数据生成对于块元素
     for (let key in currentModel) {
         //块元素
@@ -163,7 +167,26 @@ function checkBound() {
         // 底部越界
         if ((currentY + blockModel.row) >= bottomBound) {
             currentY--;
+            fixedBottomMode();
         }
 
     }
+}
+
+// 把模型固定到底部
+function fixedBottomMode() {
+    // 1. 改变模型样式
+    // 2. 让模型不可以继续移动
+
+    // 拿到所有活动中的模型
+    let activityModelEls = document.getElementsByClassName('activity_model');
+    let len = activityModelEls.length;
+    for (let i = len - 1; i >= 0; i--) {
+        // 拿到块元素
+        let activityModelEle = activityModelEls[i];
+        // 修改类名
+        activityModelEle.className = "fixed_model";
+    }
+    // 3. 创建新模型
+    createModel();
 }
