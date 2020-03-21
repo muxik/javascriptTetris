@@ -31,7 +31,66 @@ const MODELS = [
             col: 2
         },
     },
-
+    // [][]
+    // [][]
+    {
+        0: {
+            row: 1,
+            col: 1
+        },
+        1: {
+            row: 2,
+            col: 1
+        },
+        2: {
+            row: 2,
+            col: 2
+        },
+        3: {
+            row: 1,
+            col: 2
+        },
+    },
+    // [][]
+    //   [][]
+    {
+        0: {
+            row: 1,
+            col: 1
+        },
+        1: {
+            row: 2,
+            col: 3
+        },
+        2: {
+            row: 2,
+            col: 2
+        },
+        3: {
+            row: 1,
+            col: 2
+        },
+    },
+    //   []
+    // [][][]
+    {
+        0: {
+            row: 1,
+            col: 2
+        },
+        1: {
+            row: 2,
+            col: 1
+        },
+        2: {
+            row: 2,
+            col: 2
+        },
+        3: {
+            row: 2,
+            col: 3
+        },
+    }
 ];
 
 // 变量 当前模型
@@ -55,7 +114,8 @@ function init() {
  */
 function createModel() {
     // 当前使用模型
-    currentModel = MODELS[0];
+    currentModel = MODELS[Math.floor(Math.random()*4)];
+    // currentModel = MODELS[3];
     // 初始化 16 宫格的位置
     currentY = 0;
     currentX = 0;
@@ -89,7 +149,6 @@ function locationBlocks() {
         activityModelEle.style.left = (currentX + blockModel.col) * STEP + 'px';
 
     }
-    console.log(currentX, currentY);
 }
 
 /**
@@ -113,7 +172,6 @@ function onkeyDown() {
                 move(1, 0);
                 break;
             default:
-                console.log(event.keyCode);
                 break;
         }
     }
