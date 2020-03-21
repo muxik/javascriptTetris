@@ -105,6 +105,7 @@ let fixedBlocks = {};
 
 // 入口函数
 function init() {
+    document.getElementById("play").style.display='none';
     createModel();
     onkeyDown();
 }
@@ -128,6 +129,14 @@ function createModel() {
         // 定位
         locationBlocks();
     }
+
+    // 判断游戏是否结束
+    if (isMeet(currentX,currentY,currentModel)) {
+        window.alert("游戏结束");
+        // 刷新页面
+        location.href = "";
+    }
+
 }
 
 /**
@@ -265,7 +274,6 @@ function checkBound() {
             currentY--;
             fixedBottomMode();
         }
-
     }
 }
 
