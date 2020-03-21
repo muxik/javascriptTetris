@@ -105,7 +105,11 @@ let fixedBlocks = {};
 
 // 入口函数
 function init() {
+    // 开始按钮消失
     document.getElementById("play").style.display='none';
+    // 播放背景音乐
+    voicePaly();
+
     createModel();
     onkeyDown();
 }
@@ -383,4 +387,18 @@ function downLine(line) {
             fixedBlocks[i + "_" + j] = null
         }
     }
+}
+
+
+/**
+ * 播放背景音乐
+ */
+function voicePaly() {
+    let audio = "js/music.mp3";
+    audio = new Audio(audio);
+    // 循环播放，播放结束继续播放
+    $(audio).unbind("ended").bind("ended", function(){
+        audio.play();
+    });
+    audio.play();
 }
