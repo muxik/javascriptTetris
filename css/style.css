@@ -5,14 +5,19 @@
 
 body {
     padding: 5%;
+    background: #3383da;
 }
 
 .container {
     margin: 0 auto;
     width: 200px;
     height: 360px;
-    background: black;
+    background: #241c20;
     position: relative;
+}
+
+.number{
+    float: left;
 }
 
 .activity_model {

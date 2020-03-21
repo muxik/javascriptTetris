@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!-- bg -->
-<div class="container" id="container">
-    <!-- block element-->
-    <button onclick="init()" id="play" class="btn">开始</button>
+<div class="row">
+    <!-- game bg-->
+    <div class="number">
+        <h2>分数: <span id="number">0</span></h2>
+    </div>
+    <div class="container" id="container">
+        <!-- block element-->
+        <button onclick="init()" id="play" class="btn">开始</button>
+    </div>
 </div>
 
 <script src="node_modules/lodash/lodash.min.js"></script>

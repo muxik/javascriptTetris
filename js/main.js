@@ -103,6 +103,9 @@ let currentY = 0;
 // 保存所有被固定的块元素, 以及位置
 let fixedBlocks = {};
 
+// 记录分数
+let number = 0;
+
 // 入口函数
 function init() {
     // 开始按钮消失
@@ -136,9 +139,9 @@ function createModel() {
 
     // 判断游戏是否结束
     if (isMeet(currentX,currentY,currentModel)) {
-        window.alert("游戏结束");
+        window.alert("游戏结束: 分数:" +  number);
         // 刷新页面
-        location.href = "";
+        location.reload();
     }
 
 }
@@ -362,7 +365,10 @@ function removeLine(line) {
         // 清除该行数据
         fixedBlocks[line + "_" + i] = null;
     }
+    // 掉落
     downLine(line);
+    // 加分
+    addNumber();
 }
 
 /**
@@ -389,7 +395,6 @@ function downLine(line) {
     }
 }
 
-
 /**
  * 播放背景音乐
  */
@@ -401,4 +406,12 @@ function voicePaly() {
         audio.play();
     });
     audio.play();
+}
+
+/**
+ * 增加分数
+ */
+function addNumber() {
+    number += 100;
+    document.getElementById('number').innerHTML = number;
 }
