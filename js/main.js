@@ -1,4 +1,3 @@
-// const
 // 每次移动的距离
 const STEP = 20;
 // 分割容器 18 * 10
@@ -148,13 +147,14 @@ let fixedBlocks = {};
 // 记录分数
 let number = 0;
 
-// 入口函数
+/**
+ * 入口函数
+ */
 function init() {
     // 开始按钮消失
     document.getElementById("play").style.display = 'none';
     // 播放背景音乐
     voicePaly();
-
     // 渲染游戏
     createModel();
     onkeyDown();
@@ -229,6 +229,9 @@ function onkeyDown() {
                 break;
             case 39:
                 move(1, 0);
+                break;
+            case 32:
+                init();
                 break;
             default:
                 break;
@@ -476,3 +479,11 @@ function browserDetection() {
         document.getElementsByTagName('body')[0].innerHTML = "<h1>本游戏不支持手机，请切换到电脑游玩</h1>";
     }
 }
+
+// 自动执行函数
+window.onload = function () {
+    // 检测手机还是电脑
+    browserDetection();
+    // 空格开始
+    onkeyDown();
+};
