@@ -6,6 +6,7 @@
 body {
     padding: 5%;
     background: #3383da;
+    zoom: 155%;
 }
 
 .container {
@@ -14,10 +15,26 @@ body {
     height: 360px;
     background: #241c20;
     position: relative;
+    border-radius: 10px;
 }
 
 .number{
-    float: left;
+    color: #ffd038;
+    padding: 15px;
+    border: 1px solid #ffffff;
+    /*float: left;*/
+    width: 120px;
+    position: fixed;
+    left: 10px;
+    border-radius: 10px;
+}
+.number h3{
+    border-bottom: 1px solid #fff;
+}
+
+.number table tr td .op{
+    color: #fff;
+    font-size: 26px;
 }
 
 .activity_model {

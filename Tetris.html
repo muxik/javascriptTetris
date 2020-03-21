@@ -12,7 +12,29 @@
 <div class="row">
     <!-- game bg-->
     <div class="number">
-        <h2>分数: <span id="number">0</span></h2>
+        <h3>分数: <span id="number">0</span></h3>
+        <table>
+            <tr>
+                <th>操作</th>
+                <th>描述</th>
+            </tr>
+            <tr>
+                <td><span class="op">↑</span></td>
+                <td>旋转方块</td>
+            </tr>
+            <tr>
+                <td><span class="op">←</span></td>
+                <td>向左移动</td>
+            </tr>
+            <tr>
+                <td><span class="op">→</span></td>
+                <td>向右移动</td>
+            </tr>
+            <tr>
+                <td><span class="op">↓</span></td>
+                <td>向下移动</td>
+            </tr>
+        </table>
     </div>
     <div class="container" id="container">
         <!-- block element-->
@@ -23,5 +45,11 @@
 <script src="node_modules/lodash/lodash.min.js"></script>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="js/main.js"></script>
+
+
+<script>
+    // 检测手机还是电脑
+    browserDetection();
+</script>
 </body>
 </html>

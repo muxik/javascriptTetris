@@ -109,10 +109,11 @@ let number = 0;
 // 入口函数
 function init() {
     // 开始按钮消失
-    document.getElementById("play").style.display='none';
+    document.getElementById("play").style.display = 'none';
     // 播放背景音乐
     voicePaly();
 
+    // 渲染游戏
     createModel();
     onkeyDown();
 }
@@ -122,7 +123,7 @@ function init() {
  */
 function createModel() {
     // 当前使用模型
-    currentModel = MODELS[Math.floor(Math.random()*4)];
+    currentModel = MODELS[Math.floor(Math.random() * 4)];
     // currentModel = MODELS[3];
     // 初始化 16 宫格的位置
     currentY = 0;
@@ -138,8 +139,8 @@ function createModel() {
     }
 
     // 判断游戏是否结束
-    if (isMeet(currentX,currentY,currentModel)) {
-        window.alert("游戏结束: 分数:" +  number);
+    if (isMeet(currentX, currentY, currentModel)) {
+        window.alert("游戏结束: 分数:" + number);
         // 刷新页面
         location.reload();
     }
@@ -402,7 +403,7 @@ function voicePaly() {
     let audio = "js/music.mp3";
     audio = new Audio(audio);
     // 循环播放，播放结束继续播放
-    $(audio).unbind("ended").bind("ended", function(){
+    $(audio).unbind("ended").bind("ended", function () {
         audio.play();
     });
     audio.play();
@@ -414,4 +415,22 @@ function voicePaly() {
 function addNumber() {
     number += 100;
     document.getElementById('number').innerHTML = number;
+}
+
+/**
+ * 取消手机支持
+ */
+function browserDetection() {
+    let sUserAgent = navigator.userAgent.toLowerCase();
+    let bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    let bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    let bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    let bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    let bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    let bIsAndroid = sUserAgent.match(/android/i) == "android";
+    let bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    let bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+    if ((bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM)) {
+        document.getElementsByTagName('body')[0].innerHTML = "<h1>本游戏不支持手机，请切换到电脑游玩</h1>";
+    }
 }
