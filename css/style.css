@@ -1,4 +1,14 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 5%;
+}
+
 .container {
+    margin: 0 auto;
     width: 200px;
     height: 360px;
     background: black;
@@ -9,7 +19,7 @@
     width: 20px;
     height: 20px;
     background-color: cadetblue;
-    border: .3px solid #eee;
+    border: .3px solid #000;
     box-sizing: border-box;
     position: absolute;
     /*transition: 0.2s;*/
@@ -22,5 +32,29 @@
     border: .3px solid #000;
     box-sizing: border-box;
     position: absolute;
-    transition: 1s;
+    transition: 1.5s;
+}
+
+#play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.btn{
+    font-family: Hack, serif;
+    font-size: 13px !important;
+    height: 30px;
+    line-height: 18px !important;
+    padding: 3px 18px;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: normal;
+    border-radius: 3px;
+    margin: 0 8px 0 3px;
+    border: 1px solid #3383da;
+    color: #fff;
+    background-color: #3383da;
+    cursor: pointer;
 }
