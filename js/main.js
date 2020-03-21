@@ -90,7 +90,49 @@ const MODELS = [
             row: 2,
             col: 3
         },
-    }
+    },
+    //   []
+    //   []
+    //   []
+    //   []
+    {
+        0: {
+            row: 1,
+            col: 3
+        },
+        1: {
+            row: 2,
+            col: 3
+        },
+        2: {
+            row: 3,
+            col: 3
+        },
+        3: {
+            row: 4,
+            col: 3
+        },
+    },
+    //   [][]
+    // [][]
+    {
+        0: {
+            row: 1,
+            col: 3
+        },
+        1: {
+            row: 1,
+            col: 2
+        },
+        2: {
+            row: 2,
+            col: 2
+        },
+        3: {
+            row: 2,
+            col: 1
+        },
+    },
 ];
 
 // 变量 当前模型
@@ -124,7 +166,7 @@ function init() {
 function createModel() {
     // 当前使用模型
     currentModel = MODELS[Math.floor(Math.random() * 4)];
-    // currentModel = MODELS[3];
+    // currentModel = MODELS[5];
     // 初始化 16 宫格的位置
     currentY = 0;
     currentX = 0;
