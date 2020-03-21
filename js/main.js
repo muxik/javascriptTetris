@@ -165,7 +165,7 @@ function init() {
  */
 function createModel() {
     // 当前使用模型
-    currentModel = MODELS[Math.floor(Math.random() * 4)];
+    currentModel = MODELS[Math.floor(Math.random() * 6)];
     // currentModel = MODELS[5];
     // 初始化 16 宫格的位置
     currentY = 0;
