@@ -147,6 +147,9 @@ let fixedBlocks = {};
 // 记录分数
 let number = 0;
 
+// 是否已经开始游戏
+let status = 0;
+
 /**
  * 入口函数
  */
@@ -166,7 +169,7 @@ function init() {
 function createModel() {
     // 当前使用模型
     currentModel = MODELS[Math.floor(Math.random() * 6)];
-    // currentModel = MODELS[5];
+    // currentModel = MODELS[4];
     // 初始化 16 宫格的位置
     currentY = 0;
     currentX = 0;
@@ -231,7 +234,13 @@ function onkeyDown() {
                 move(1, 0);
                 break;
             case 32:
-                init();
+                // 避免重复开始
+                if (status === 0) {
+                    status = 1;
+                    init();
+                }else {
+                    window.alert('已经开始了');
+                }
                 break;
             default:
                 break;
