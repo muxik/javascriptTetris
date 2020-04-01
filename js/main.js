@@ -168,8 +168,8 @@ function init() {
  */
 function createModel() {
     // 当前使用模型
-    currentModel = MODELS[Math.floor(Math.random() * 6)];
-    // currentModel = MODELS[4];
+    // currentModel = MODELS[Math.floor(Math.random() * 6)];
+    currentModel = MODELS[4];
     // 初始化 16 宫格的位置
     currentY = 0;
     currentX = 0;
@@ -181,13 +181,14 @@ function createModel() {
         document.getElementById('container').appendChild(divEle);
         // 定位
         locationBlocks();
+
     }
 
     // 判断游戏是否结束
     if (isMeet(currentX, currentY, currentModel)) {
-        window.alert("游戏结束: 分数:" + number);
         // 刷新页面
         location.reload();
+        window.alert("游戏结束: 分数:" + number);
     }
 
 }
@@ -238,7 +239,7 @@ function onkeyDown() {
                 if (status === 0) {
                     status = 1;
                     init();
-                }else {
+                } else {
                     window.alert('已经开始了');
                 }
                 break;
@@ -461,6 +462,7 @@ function voicePaly() {
         audio.play();
     });
     audio.play();
+    auto_down();
 }
 
 /**
@@ -496,3 +498,11 @@ window.onload = function () {
     // 空格开始
     onkeyDown();
 };
+
+// 自动下落
+function auto_down() {
+    setInterval(function () {
+        move(0, 1);
+    }, 1000)
+
+}
